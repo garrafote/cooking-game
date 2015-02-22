@@ -3,5 +3,7 @@ using System.Collections;
 
 public class TimedTask : Task {
 
-	public float Duration {get; set;}
+    public float duration;
+
+
 }
