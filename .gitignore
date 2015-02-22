@@ -35,6 +35,7 @@ Assets/-tk2d.asset.meta
 *.userprefs.meta
 _Resharper.*
 Assets/UnityVS
+Assets/UnityVS.meta
 
 # -------------[ OS generated ]------------------------ #
 .DS_Store
