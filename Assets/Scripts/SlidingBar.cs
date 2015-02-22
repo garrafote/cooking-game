@@ -7,6 +7,8 @@ public class SlidingBar : MonoBehaviour {
     // Components
     Scrollbar ScrlBarComp;
     RectTransform RctTransComp;
+
+    public Task task;
 	
     // Progress for the Sliding bar. Goes from 0 to 1
     public float Progress
@@ -20,7 +22,6 @@ public class SlidingBar : MonoBehaviour {
             ScrlBarComp.size = value;
         }
     }
-
 
     public Vector3 Position
     {

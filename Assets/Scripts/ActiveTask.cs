@@ -1,32 +1,63 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ActiveTask : Task 
 {
-	public System.Action<ActiveTask> inputAction;
+	public System.Predicate<ActiveTask> inputAction;
 	public float previousInputAngle;
-	public Stack<string> inputIdentifiers;
+	public List<string> inputIdentifiers;
 
-	public void ListenJoyStickRotation(ActiveTask task)
+    public event System.Action Complete;
+
+
+    void Update()
+    {
+
+        if (inputAction == null)
+            return;
+
+        var done = inputAction(this);
+
+        if (done)
+        {
+            if (Complete != null) Complete();
+            inputAction = null;
+        }
+
+    }
+
+
+
+	public bool ListenJoyStickRotation(ActiveTask task)
 	{
 		var xAxis = Input.GetAxis ("Horizontal");
 		var yAxis = Input.GetAxis ("Vertical");
 		previousInputAngle += Mathf.Atan2 (yAxis, xAxis) * Mathf.Rad2Deg;
 		if (previousInputAngle >= 360.0f) {
 			// Signal Done
+            return true;
 		}
+
+        return false;
 	}
 
-	public void ListenButtonPress(ActiveTask task) 
+	public bool ListenButtonPress(ActiveTask task) 
 	{
 
-		if (Input.GetButtonUp (inputIdentifiers.Peek())) {
-			if (inputIdentifiers.Count == 0) {
-				// Signal Done
-			}
-			else {
-				inputIdentifiers.Pop();
-			}	
-		}
+		if (Input.GetButtonUp (inputIdentifiers.First())) {
+            
+            inputIdentifiers.RemoveAt(0);
+
+
+
+            if (inputIdentifiers.Count == 0)
+            {
+                return true;
+            }
+        }
+        
+
+        return false;
 	}
 }
