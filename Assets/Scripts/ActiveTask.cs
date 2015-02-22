@@ -5,13 +5,12 @@ public class ActiveTask : Task
 {
 	public System.Action<ActiveTask> inputAction;
 	public float previousInputAngle;
-	public Stack<string> InputIdentifiers { get; set; };
+	public Stack<string> inputIdentifiers;
 
 	public void ListenJoyStickRotation(ActiveTask task)
 	{
 		var xAxis = Input.GetAxis ("Horizontal");
 		var yAxis = Input.GetAxis ("Vertical");
-		var vector = Vector2 (xAxis, yAxis);
 		previousInputAngle += Mathf.Atan2 (yAxis, xAxis) * Mathf.Rad2Deg;
 		if (previousInputAngle >= 360.0f) {
 			// Signal Done
@@ -21,12 +20,12 @@ public class ActiveTask : Task
 	public void ListenButtonPress(ActiveTask task) 
 	{
 
-		if (Input.GetButtonUp (InputIdentifiers.Peek)) {
-			if (InputIdentifiers.Count == 0) {
+		if (Input.GetButtonUp (inputIdentifiers.Peek())) {
+			if (inputIdentifiers.Count == 0) {
 				// Signal Done
 			}
 			else {
-				InputIdentifiers.Pop();
+				inputIdentifiers.Pop();
 			}	
 		}
 	}
