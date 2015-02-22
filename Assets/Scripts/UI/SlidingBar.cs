@@ -69,6 +69,13 @@ public class SlidingBar : MonoBehaviour {
     //TEST STUFF
     void Update()
     {
+        //If task is timed
+            //Increment/decrement based on dt
+
+        //If task is active
+            //ActiveTask.Buttons to progress?
+
+
         if (Input.GetKeyDown(KeyCode.Space)) Progress -= 0.01f;
         if (Input.GetKeyDown(KeyCode.W)) Position = new Vector3(Position.x,Position.y+1.0f);
         if (Input.GetKeyDown(KeyCode.S)) Position = new Vector3(Position.x, Position.y - 1.0f);

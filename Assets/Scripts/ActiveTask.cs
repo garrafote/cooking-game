@@ -8,8 +8,6 @@ public class ActiveTask : Task
 	public float previousInputAngle;
 	public List<string> inputIdentifiers;
 
-    public event System.Action Complete;
-
 
     void Update()
     {
@@ -21,7 +19,7 @@ public class ActiveTask : Task
 
         if (done)
         {
-            if (Complete != null) Complete();
+            OnComplete();
             inputAction = null;
         }
 
