@@ -7,6 +7,8 @@ public class SlidingBar : MonoBehaviour {
     // Components
     Scrollbar ScrlBarComp;
     RectTransform RctTransComp;
+    Image IconComp;
+    Text TaskNameComp;
 	
     // Progress for the Sliding bar. Goes from 0 to 1
     public float Progress
@@ -33,13 +35,33 @@ public class SlidingBar : MonoBehaviour {
             RctTransComp.position = value;
         }
     }
+
+    public string TaskNameTxt
+    {
+        get
+        {
+            return TaskNameComp.text;
+        }
+        set
+        {
+            TaskNameComp.text = value;
+        }
+    }
     
     // Use this for initialization
 	void Awake ()
     {
         // Get used components
-        ScrlBarComp = GetComponent<Scrollbar>();
+        ScrlBarComp = GetComponentInChildren<Scrollbar>();
         RctTransComp = GetComponent<RectTransform>();
+        IconComp = transform.Find("Icon").GetComponent<Image>();
+        TaskNameComp = transform.Find("TaskName").GetComponent<Text>();
+
+        // Default Task is active type
+        SetTaskType(true);
+
+        TaskNameTxt = "Bla bla bla";
+        
 	}
 
     //TEST STUFF
@@ -51,7 +73,10 @@ public class SlidingBar : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.A)) Position = new Vector3(Position.x - 1.0f, Position.y);
         if (Input.GetKeyDown(KeyCode.D)) Position = new Vector3(Position.x + 1.0f, Position.y);
     }
-	
 
-
+    void SetTaskType(bool isActiveTask)
+    {
+        if (isActiveTask) IconComp.sprite = Resources.Load<Sprite>("Sprites/aRound");
+        else IconComp.sprite = Resources.Load<Sprite>("Sprites/bRound");
+    }
 }
