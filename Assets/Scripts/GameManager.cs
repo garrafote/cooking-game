@@ -34,8 +34,10 @@ public class GameManager : MonoBehaviour {
 
     void OnTaskComplete(Task task)
     {
-        var bar =
+        var bar = bars[task];
+
         bars.Remove(task);
+        Destroy(bar.gameObject);
     }
 
     void _CreateSlidingBar(Task task)
@@ -65,7 +67,7 @@ public class GameManager : MonoBehaviour {
 
             var activeTask = task as ActiveTask;
             activeTask.inputAction = activeTask.ListenButtonPress;
-            activeTask.inputIdentifiers = (new[] { "Fire1", "Fire1", "Fire1" }).ToList();
+            activeTask.inputIdentifiers = (new[] { "Fire2", "Fire2", "Fire1" }).ToList();
 
             var rt = bar.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector3(300, -50);

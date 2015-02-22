@@ -7,11 +7,29 @@ public class SlidingBar : MonoBehaviour {
     // Components
     Scrollbar ScrlBarComp;
     RectTransform RctTransComp;
+	Image IconComp;
+	Text TaskNameComp;
 
-    public Task task;
-    
-    Image IconComp;
-    Text TaskNameComp;
+	Task _task;
+	// Variables
+	float currentTime;
+	public Task task
+	{
+		get
+		{
+			return _task; 
+		}
+		set 
+		{
+			_task = value;
+			if (_task is TimedTask) {
+				IconComp.sprite = Resources.Load<Sprite>("Sprites/bRound");
+			}
+			else {
+				IconComp.sprite = Resources.Load<Sprite>("Sprites/aRound");
+			}
+		}
+	}
 	
     // Progress for the Sliding bar. Goes from 0 to 1
     public float Progress
@@ -59,33 +77,25 @@ public class SlidingBar : MonoBehaviour {
         IconComp = transform.Find("Icon").GetComponent<Image>();
         TaskNameComp = transform.Find("TaskName").GetComponent<Text>();
 
-        // Default Task is active type
-        SetTaskType(true);
-
-        TaskNameTxt = "Bla bla bla";
+		// Initialization
+		Progress = 0.0f;
+		TaskNameTxt = "DefaultName";
         
 	}
 
     //TEST STUFF
     void Update()
     {
-        //If task is timed
-            //Increment/decrement based on dt
+        if (_task is TimedTask) {
+			var timedTask = _task as TimedTask;
+			Progress = currentTime / timedTask.duration;
+			currentTime += Time.deltaTime;
 
-        //If task is active
-            //ActiveTask.Buttons to progress?
+		} else { // Active
+			var activeTask = _task as ActiveTask;
+			Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
+			Debug.Log(Progress);
 
-
-        if (Input.GetKeyDown(KeyCode.Space)) Progress -= 0.01f;
-        if (Input.GetKeyDown(KeyCode.W)) Position = new Vector3(Position.x,Position.y+1.0f);
-        if (Input.GetKeyDown(KeyCode.S)) Position = new Vector3(Position.x, Position.y - 1.0f);
-        if (Input.GetKeyDown(KeyCode.A)) Position = new Vector3(Position.x - 1.0f, Position.y);
-        if (Input.GetKeyDown(KeyCode.D)) Position = new Vector3(Position.x + 1.0f, Position.y);
-    }
-
-    void SetTaskType(bool isActiveTask)
-    {
-        if (isActiveTask) IconComp.sprite = Resources.Load<Sprite>("Sprites/aRound");
-        else IconComp.sprite = Resources.Load<Sprite>("Sprites/bRound");
+		}
     }
 }
