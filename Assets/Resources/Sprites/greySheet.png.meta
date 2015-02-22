@@ -131,7 +131,7 @@ TextureImporter:
         height: 36
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 10, y: 7, z: 13, w: 7}
     - name: grey_boxCheckmark.png
       rect:
         serializedVersion: 2
@@ -391,7 +391,7 @@ TextureImporter:
         height: 42
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 4, y: 17, z: 4, w: 4}
     - name: grey_sliderEnd.png
       rect:
         serializedVersion: 2
@@ -416,22 +416,22 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 3
+        y: 6
         width: 39
-        height: 31
+        height: 28
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 16, y: 4, z: 4, w: 4}
     - name: grey_sliderRight.png
       rect:
         serializedVersion: 2
         x: 39
-        y: 3
+        y: 6
         width: 39
-        height: 31
+        height: 28
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 5, y: 4, z: 16, w: 4}
     - name: grey_sliderUp.png
       rect:
         serializedVersion: 2
@@ -441,7 +441,7 @@ TextureImporter:
         height: 42
       alignment: 0
       pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+      border: {x: 4, y: 8, z: 4, w: 16}
     - name: grey_sliderVertical.png
       rect:
         serializedVersion: 2
