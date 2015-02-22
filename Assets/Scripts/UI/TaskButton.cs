@@ -50,7 +50,7 @@ public class TaskButton : MonoBehaviour {
             var bar = GameObject.Instantiate(timedPrefab) as GameObject;
             bar.transform.SetParent(canvas);
 
-            var barbar = bar.transform.GetChild(0).GetComponent<SlidingBar>();
+            var barbar = bar.transform.GetComponent<SlidingBar>();
             barbar.task = task;
 
 
