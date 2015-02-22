@@ -7,6 +7,8 @@ public class ActiveTask : Task
 	public System.Predicate<ActiveTask> inputAction;
 	public float previousInputAngle;
 	public List<string> inputIdentifiers;
+	public int totalInputCount;
+	public int completedInputCount;
 
     public event System.Action Complete;
 
@@ -48,8 +50,7 @@ public class ActiveTask : Task
 		if (Input.GetButtonUp (inputIdentifiers.First())) {
             
             inputIdentifiers.RemoveAt(0);
-
-
+			completedInputCount++;
 
             if (inputIdentifiers.Count == 0)
             {
