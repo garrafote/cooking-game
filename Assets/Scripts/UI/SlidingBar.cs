@@ -23,11 +23,12 @@ public class SlidingBar : MonoBehaviour {
 		set 
 		{
 			_task = value;
+            TaskNameComp.text = _task.name;
 			if (_task is TimedTask) {
-				IconComp.sprite = Resources.Load<Sprite>("Sprites//UI/Clock");
+				IconComp.sprite = Resources.Load<Sprite>("Sprites/UI/Clock");
 			}
 			else {
-                IconComp.sprite = Resources.Load<Sprite>("Sprites//UI/Hand");
+                IconComp.sprite = Resources.Load<Sprite>("Sprites/UI/Hand");
 			}
 		}
 	}

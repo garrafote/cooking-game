@@ -5,12 +5,12 @@ using System.Linq;
 public class ActiveTask : Task 
 {
 	public System.Predicate<ActiveTask> inputAction;
-	public float previousInputAngle;
+	private float previousInputAngle;
+    public float totalAngularDisplacment;
+    private float currentAngularDisplacement;
 	public List<string> inputIdentifiers;
 	public int totalInputCount;
 	public int completedInputCount;
-
-    public event System.Action Complete;
 
 
     void Update()
@@ -23,7 +23,7 @@ public class ActiveTask : Task
 
         if (done)
         {
-            if (Complete != null) Complete();
+            OnComplete();
             inputAction = null;
         }
 
@@ -35,10 +35,28 @@ public class ActiveTask : Task
 	{
 		var xAxis = Input.GetAxis ("Horizontal");
 		var yAxis = Input.GetAxis ("Vertical");
-		previousInputAngle += Mathf.Atan2 (yAxis, xAxis) * Mathf.Rad2Deg;
-		if (previousInputAngle >= 360.0f) {
-			// Signal Done
-            return true;
+
+        var fuckYou = false;
+        if (xAxis == 0 && yAxis == 0)
+            return fuckYou;
+
+		var currentInputAngle = Mathf.Atan2 (yAxis, xAxis) * Mathf.Rad2Deg;
+        if (currentInputAngle < 0)
+        {
+            currentInputAngle += 360.0f;
+        }
+
+        var delta = currentInputAngle - previousInputAngle; // Assuming positive rotation
+        
+        
+        currentAngularDisplacement += delta; 
+        previousInputAngle = currentInputAngle;
+        Debug.Log("Delta" + delta);
+        Debug.Log("CAD" + currentAngularDisplacement);
+
+        if (currentAngularDisplacement >= totalAngularDisplacment) {
+			
+            return false;
 		}
 
         return false;
