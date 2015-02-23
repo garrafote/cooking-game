@@ -37,8 +37,8 @@ public class ActiveTask : Task
 
 	public bool ListenJoyStickRotation(ActiveTask task)
 	{
-		var xAxis = Input.GetAxis ("Horizontal");
-		var yAxis = Input.GetAxis ("Vertical");
+        var xAxis = Input.GetAxis("Horizontal") + Input.GetAxis("HoriNav");
+        var yAxis = Input.GetAxis("Vertical") + Input.GetAxis("VertNav");
 
         var fuckYou = false;
         if (xAxis == 0 && yAxis == 0)
