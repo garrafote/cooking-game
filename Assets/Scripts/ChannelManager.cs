@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class ChannelManager : MonoBehaviour 
 {
-	List<RectTransform> Tasks;
+	public List<RectTransform> Tasks;
 
 	public GameObject taskButtonPrefab;
 
@@ -32,7 +32,7 @@ public class ChannelManager : MonoBehaviour
 			if(i == 0)
 			{
 				Tasks[i].position = new Vector3(0, Tasks[i].position.y, Tasks[i].position.z);
-				Tasks[i].position = new Vector3(Tasks[i].position.x + 150, Tasks[i].position.y, Tasks[i].position.z);
+				//Tasks[i].position = new Vector3(Tasks[i].position.x + 150, Tasks[i].position.y, Tasks[i].position.z);
 			}
 			else
 			{
@@ -86,10 +86,5 @@ public class ChannelManager : MonoBehaviour
 
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.G))
-		{
-			Debug.Log("G Pressed\n");
-			RegisterTaskButton(((GameObject)GameObject.Instantiate(taskButtonPrefab, transform.position, Quaternion.identity)).GetComponent<RectTransform>());
-		}
 	}
 }

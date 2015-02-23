@@ -23,6 +23,14 @@ public class RecipeManager : MonoBehaviour
 	public int selectedChannel = 0;
 	void PressUp()
 	{
+		int next = FindNextChannel();
+		Debug.Log(next + "\n");
+		if(next != -1)
+		{
+			selectedChannel = next;
+			EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);
+		}
+		/*
 		if(selectedChannel <= 0)
 		{
 			selectedChannel = channels.Count - 1;
@@ -30,14 +38,20 @@ public class RecipeManager : MonoBehaviour
 		else
 		{
 			selectedChannel--;
-		}
+		}*/
 
-		EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);
 	}
-
 	void PressDown()
 	{
-		if (selectedChannel >= channels.Count - 1)
+		int next = FindNextChannel();
+		Debug.Log(next + "\n");
+		if (next != -1)
+		{
+			selectedChannel = next;
+			EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);
+		}
+
+		/*if (selectedChannel >= channels.Count - 1)
 		{
 			selectedChannel = 0;
 		}
@@ -46,8 +60,63 @@ public class RecipeManager : MonoBehaviour
 			selectedChannel++;
 		}
 
-		EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);
+		EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);*/
 	}
+
+	int FindNextChannel()
+	{
+		int nextChannel = -1;
+
+		for (int i = selectedChannel + 1; i < 100; i++)
+		{
+			if (i >= channels.Count)
+			{
+				i = 0;
+			}
+
+			nextChannel = i;
+			
+			if (channels[nextChannel].Tasks.Count > 0)
+			{
+				return nextChannel;
+			}
+
+			if(i == selectedChannel)
+			{
+				return -1;
+			}
+		}
+
+		return nextChannel;
+	}
+
+	int FindPrevChannel()
+	{
+		int nextChannel = -1;
+
+		for (int i = selectedChannel - 1; i < -200; i--)
+		{
+			if (i <= 0)
+			{
+				i = channels.Count;
+			}
+
+			nextChannel = i;
+
+			if (channels[nextChannel].Tasks.Count > 0)
+			{
+				return nextChannel;
+			}
+
+			if (i == selectedChannel)
+			{
+				return -1;
+			}
+		}
+
+		return nextChannel;
+	}
+
 
 	void Start () 
 	{
