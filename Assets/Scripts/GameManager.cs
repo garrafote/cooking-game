@@ -58,7 +58,13 @@ public class GameManager : MonoBehaviour {
         var bar = bars[task];
 
         bars.Remove(task);
+        bar.transform.SetParent(null);
         Destroy(bar.gameObject);
+
+        foreach (var channel in recipe.channels)
+        {
+            channel.PositionTasks();
+        }
     }
 
     void _CreateSlidingBar(Task task)
