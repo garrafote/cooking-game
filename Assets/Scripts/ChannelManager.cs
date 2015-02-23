@@ -17,6 +17,15 @@ public class ChannelManager : MonoBehaviour
 
 	public void PositionTasks()
 	{
+        for (int i = Tasks.Count - 1; i >= 0; i--)
+        {
+            var task = Tasks[i];
+            if (task.parent != transform)
+            {
+                Tasks.Remove(task);
+            }
+        }
+
 		//Go through each task button.
 		for(int i = 0; i < Tasks.Count; i++)
 		{

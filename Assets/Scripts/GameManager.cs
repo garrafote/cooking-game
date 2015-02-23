@@ -61,10 +61,7 @@ public class GameManager : MonoBehaviour {
         bar.transform.SetParent(null);
         Destroy(bar.gameObject);
 
-        foreach (var channel in recipe.channels)
-        {
-            channel.PositionTasks();
-        }
+
     }
 
     void _CreateSlidingBar(Task task)
@@ -100,11 +97,15 @@ public class GameManager : MonoBehaviour {
             rt.pivot = new Vector2(0, 0);
 
             bars.Add(task, barbar);
-
         }
         else
         {
             return;
+        }
+
+        foreach (var channel in recipe.channels)
+        {
+            channel.PositionTasks();
         }
     }
 
