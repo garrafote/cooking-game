@@ -114,9 +114,20 @@ public class SlidingBar : MonoBehaviour {
         else 
         { 
             // Active Task
+
 			var activeTask = _task as ActiveTask;
-			Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
-            InstructionTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
+            if (activeTask.actionType == ActionType.Smash)
+            {
+                Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
+                InstructionTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
+            }
+            else
+            {
+                Progress = ((float)activeTask.currentAngularDisplacement / (float)activeTask.totalAngularDisplacment);
+                InstructionTxt = "ROTATE LEFT JOYSTICK!!!!";
+            }
+            
+            
 			Debug.Log(Progress);
 		}
     }
