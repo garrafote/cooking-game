@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Linq;
 
 public class SlidingBar : MonoBehaviour {
 
@@ -94,6 +95,7 @@ public class SlidingBar : MonoBehaviour {
 		} else { // Active
 			var activeTask = _task as ActiveTask;
 			Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
+            TaskNameTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
 			Debug.Log(Progress);
 
 		}
