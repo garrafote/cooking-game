@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 
+public enum ActionType
+{
+    Rotate,
+    Smash
+}
+
 public class ActiveTask : Task 
 {
 	public System.Predicate<ActiveTask> inputAction;
@@ -11,7 +17,7 @@ public class ActiveTask : Task
 	public List<string> inputIdentifiers;
 	public int totalInputCount;
 	public int completedInputCount;
-
+    public ActionType actionType;
 
     void Update()
     {
@@ -28,8 +34,6 @@ public class ActiveTask : Task
         }
 
     }
-
-
 
 	public bool ListenJoyStickRotation(ActiveTask task)
 	{
@@ -51,8 +55,8 @@ public class ActiveTask : Task
         
         currentAngularDisplacement += delta; 
         previousInputAngle = currentInputAngle;
-        Debug.Log("Delta" + delta);
-        Debug.Log("CAD" + currentAngularDisplacement);
+       // Debug.Log("Delta" + delta);
+      //  Debug.Log("CAD" + currentAngularDisplacement);
 
         if (currentAngularDisplacement >= totalAngularDisplacment) {
 			
