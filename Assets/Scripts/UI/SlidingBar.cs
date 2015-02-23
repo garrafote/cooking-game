@@ -107,8 +107,9 @@ public class SlidingBar : MonoBehaviour {
         { 
             //Passive Task
 			var timedTask = _task as TimedTask;
-			Progress = currentTime / timedTask.duration;
+			Progress = timedTask.progress = currentTime / timedTask.duration;
 			currentTime += Time.deltaTime;
+            currentTime = Mathf.Clamp(currentTime, 0, timedTask.duration);
 		}
         else 
         { 
