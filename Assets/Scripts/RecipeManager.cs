@@ -23,13 +23,27 @@ public class RecipeManager : MonoBehaviour
 	public int selectedChannel = 0;
 	void PressUp()
 	{
-		if(selectedChannel < 0)
+		if(selectedChannel <= 0)
 		{
-			selectedChannel = channels.Count;
+			selectedChannel = channels.Count - 1;
 		}
 		else
 		{
 			selectedChannel--;
+		}
+
+		EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);
+	}
+
+	void PressDown()
+	{
+		if (selectedChannel >= channels.Count - 1)
+		{
+			selectedChannel = 0;
+		}
+		else
+		{
+			selectedChannel++;
 		}
 
 		EventSystem.current.SetSelectedGameObject(channels[selectedChannel].FrontTask.gameObject);
@@ -42,6 +56,14 @@ public class RecipeManager : MonoBehaviour
 	
 	void Update () 
 	{
+		if(Input.GetKeyDown(KeyCode.I))
+		{
+			PressUp();
+		}
+		if (Input.GetKeyDown(KeyCode.K))
+		{
+			PressDown();
+		}
 		//If they press up
 		//PressUp();
 
