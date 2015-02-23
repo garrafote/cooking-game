@@ -13,6 +13,8 @@ public class GameManager : MonoBehaviour {
     public GameObject activePrefab;
     public Transform canvas;
 
+    public RecipeManager recipe;
+
     public static GameManager Instance { get; private set; }
     
     #region Private Methods and Unity Messages
@@ -29,6 +31,19 @@ public class GameManager : MonoBehaviour {
         foreach (var task in tasks)
         {
             task.Complete += OnTaskComplete;
+        }
+    }
+
+    void Start()
+    {
+        foreach (var task in tasks)
+        {
+            recipe.channels[0].GenerateTask(task);
+        }
+
+        foreach (var channel in recipe.channels)
+        {
+            channel.PositionTasks();
         }
     }
 
@@ -51,7 +66,7 @@ public class GameManager : MonoBehaviour {
             barbar.task = task;
 
             var rt = bar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector3(50, -50);
+            rt.anchoredPosition = new Vector3(150, -150);
             rt.pivot = new Vector2(0, 0);
 
             bars.Add(task, barbar);
@@ -70,7 +85,7 @@ public class GameManager : MonoBehaviour {
             //activeTask.inputIdentifiers = (new[] { "Fire2", "Fire2", "Fire1" }).ToList();
 
             var rt = bar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector3(300, -50);
+            rt.anchoredPosition = new Vector3(900, -150);
             rt.pivot = new Vector2(0, 0);
 
             bars.Add(task, barbar);

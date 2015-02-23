@@ -20,7 +20,6 @@ public class TaskButton : MonoBehaviour {
     public void OnClick()
     {
         GameManager.CreateSlidingBar(task);
-
         Destroy(gameObject);
     }
 
