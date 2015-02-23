@@ -117,7 +117,7 @@ public class SlidingBar : MonoBehaviour {
 			var activeTask = _task as ActiveTask;
 			Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
             InstructionTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
-			Debug.Log(Progress);
+			//Debug.Log(Progress);
 		}
     }
 }
