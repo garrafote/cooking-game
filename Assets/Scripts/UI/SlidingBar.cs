@@ -10,6 +10,7 @@ public class SlidingBar : MonoBehaviour {
     RectTransform RctTransComp;
 	Image IconComp;
 	Text TaskNameComp;
+    Text InstructionsComp;
 
 	Task _task;
 	// Variables
@@ -69,6 +70,18 @@ public class SlidingBar : MonoBehaviour {
             TaskNameComp.text = value;
         }
     }
+
+    public string InstructionTxt
+    {
+        get
+        {
+            return InstructionsComp.text;
+        }
+        set
+        {
+            InstructionsComp.text = value;
+        }
+    }
     
     // Use this for initialization
 	void Awake ()
@@ -78,25 +91,32 @@ public class SlidingBar : MonoBehaviour {
         RctTransComp = GetComponent<RectTransform>();
         IconComp = transform.Find("Icon").GetComponent<Image>();
         TaskNameComp = transform.Find("TaskName").GetComponent<Text>();
+        InstructionsComp = transform.Find("Instruction").GetComponent<Text>();
 
 		// Initialization
 		Progress = 0.0f;
 		TaskNameTxt = "DefaultName";
+        InstructionTxt = "DefaultInstruction";
         
 	}
 
     //TEST STUFF
     void Update()
     {
-        if (_task is TimedTask) {
+        if (_task is TimedTask)
+        { 
+            //Passive Task
 			var timedTask = _task as TimedTask;
 			Progress = currentTime / timedTask.duration;
 			currentTime += Time.deltaTime;
 
-		} else { // Active
+		}
+        else 
+        { 
+            // Active Task
 			var activeTask = _task as ActiveTask;
 			Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
-            TaskNameTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
+            InstructionTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
 			Debug.Log(Progress);
 
 		}
