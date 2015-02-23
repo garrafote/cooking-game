@@ -19,7 +19,7 @@ public class TaskButton : MonoBehaviour {
 
     public void OnClick()
     {
-        transform.parent = null;
+        transform.SetParent(null);
         GameManager.CreateSlidingBar(task);
         Destroy(gameObject);
     }
