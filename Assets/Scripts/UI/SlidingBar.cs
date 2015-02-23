@@ -109,15 +109,21 @@ public class SlidingBar : MonoBehaviour {
 			var timedTask = _task as TimedTask;
 			Progress = currentTime / timedTask.duration;
 			currentTime += Time.deltaTime;
-
 		}
         else 
         { 
             // Active Task
 			var activeTask = _task as ActiveTask;
-			Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
-            InstructionTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
-			//Debug.Log(Progress);
-		}
+            if (activeTask.actionType == ActionType.Smash)
+            {
+                Progress = ((float)activeTask.completedInputCount / (float)activeTask.totalInputCount);
+                InstructionTxt = string.Concat("Press ", activeTask.inputIdentifiers.First());
+            }
+            else
+            {
+                Progress = ((float)activeTask.currentAngularDisplacement / (float)activeTask.totalAngularDisplacment);
+                InstructionTxt = "ROTATE LEFT JOYSTICK!!!!";
+            }         
+     	}
     }
 }

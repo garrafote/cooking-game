@@ -13,7 +13,7 @@ public class ActiveTask : Task
 	public System.Predicate<ActiveTask> inputAction;
 	private float previousInputAngle;
     public float totalAngularDisplacment;
-    private float currentAngularDisplacement;
+    public float currentAngularDisplacement;
 	public List<string> inputIdentifiers;
 	public int totalInputCount;
 	public int completedInputCount;
@@ -50,17 +50,34 @@ public class ActiveTask : Task
             currentInputAngle += 360.0f;
         }
 
-        var delta = currentInputAngle - previousInputAngle; // Assuming positive rotation
+        if (currentInputAngle > 90.0f && currentInputAngle < 180.0f && previousInputAngle < 90.0f)
+        {
+            currentAngularDisplacement += currentInputAngle;
+        }
+        else if (currentInputAngle > 180.0f && currentInputAngle < 270.0f && previousInputAngle > 90.0f && previousInputAngle < 180.0f)
+        {
+            currentAngularDisplacement += currentInputAngle;
+
+        }
+        else if (currentInputAngle > 270.0f && currentInputAngle < 360.0f && previousInputAngle > 180.0f && previousInputAngle < 270.0f)
+        {
+            currentAngularDisplacement += currentInputAngle;
+
+        }
+        else if (currentInputAngle > 0.0f && currentInputAngle < 90.0f && previousInputAngle > 270.0f && previousInputAngle < 360.0f)
+        {
+            currentAngularDisplacement += currentInputAngle;
+
+        }
+
         
-        
-        currentAngularDisplacement += delta; 
         previousInputAngle = currentInputAngle;
        // Debug.Log("Delta" + delta);
-      //  Debug.Log("CAD" + currentAngularDisplacement);
+        Debug.Log("CAD" + currentInputAngle);
 
         if (currentAngularDisplacement >= totalAngularDisplacment) {
 			
-            return false;
+            return true;
 		}
 
         return false;
