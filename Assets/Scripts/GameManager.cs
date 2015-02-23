@@ -75,7 +75,12 @@ public class GameManager : MonoBehaviour {
             barbar.task = task;
 
             var rt = bar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector3(150, -150);
+
+            rt.anchorMin = new Vector2(0.0f, 1.0f);
+            rt.anchorMax = new Vector2(0.0f, 1.0f);
+            
+            rt.anchoredPosition = new Vector3(10, -150);
+            
             rt.pivot = new Vector2(0, 0);
 
             bars.Add(task, barbar);
@@ -93,7 +98,11 @@ public class GameManager : MonoBehaviour {
             activeTask.inputAction = (activeTask.actionType == ActionType.Smash) ? (System.Predicate<ActiveTask>)activeTask.ListenButtonPress : activeTask.ListenJoyStickRotation; 
 
             var rt = bar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector3(900, -150);
+            rt.anchorMin = new Vector2(1.0f, 1.0f);
+            rt.anchorMax = new Vector2(1.0f, 1.0f);
+
+            rt.anchoredPosition = new Vector3(-310, -150);
+            
             rt.pivot = new Vector2(0, 0);
 
             bars.Add(task, barbar);
