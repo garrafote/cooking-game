@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public GameObject timedPrefab;
     public GameObject activePrefab;
     public Transform canvas;
-    private RectTransform lastRectTransform;
+    private List<RectTransform> rectTransforms;
     public RecipeManager recipe;
 
     public static GameManager Instance { get; private set; }
@@ -27,6 +27,7 @@ public class GameManager : MonoBehaviour {
         bars = new Dictionary<Task, SlidingBar>();
 
         tasks = new List<Task>();
+        rectTransforms = new List<RectTransform>();
     }
 
     void Start()
@@ -83,15 +84,14 @@ public class GameManager : MonoBehaviour {
             
             rt.pivot = new Vector2(0, 0);
 
+            var lastRectTransform = rectTransforms.LastOrDefault();
             if (lastRectTransform)
             {
-                rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y - lastRectTransform.rect.height);
-            }
-            else
-            {
-                lastRectTransform = rt;
+                rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y - lastRectTransform.rect.height * rectTransforms.Count());
             }
 
+            rectTransforms.Add(rt);
+           
             bars.Add(task, barbar);
         }
         else if (task is ActiveTask)
