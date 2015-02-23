@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public GameObject timedPrefab;
     public GameObject activePrefab;
     public Transform canvas;
-
+    private RectTransform lastRectTransform;
     public RecipeManager recipe;
 
     public static GameManager Instance { get; private set; }
@@ -78,8 +78,16 @@ public class GameManager : MonoBehaviour {
             rt.anchoredPosition = new Vector3(150, -150);
             rt.pivot = new Vector2(0, 0);
 
-            bars.Add(task, barbar);
+            if (lastRectTransform)
+            {
+                rt.anchoredPosition = new Vector2(rt.anchoredPosition.x, rt.anchoredPosition.y - lastRectTransform.rect.height);
+            }
+            else
+            {
+                lastRectTransform = rt;
+            }
 
+            bars.Add(task, barbar);
         }
         else if (task is ActiveTask)
         {
