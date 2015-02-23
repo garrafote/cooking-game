@@ -40,7 +40,7 @@ public class TaskButton : MonoBehaviour {
 
 
             var rt = bar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector3(50, -50);
+            rt.anchoredPosition = new Vector3(50, -150);
             rt.pivot = new Vector2(0, 0);
             
 
@@ -60,7 +60,7 @@ public class TaskButton : MonoBehaviour {
             activeTask.Complete += () => Destroy(bar);
 
             var rt = bar.GetComponent<RectTransform>();
-            rt.anchoredPosition = new Vector3(300, -50);
+            rt.anchoredPosition = new Vector3(900, -150);
             rt.pivot = new Vector2(0, 0);
 
 
