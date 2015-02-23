@@ -23,8 +23,7 @@ public class RecipeManager : MonoBehaviour
 	public int selectedChannel = 0;
 	void PressUp()
 	{
-		int next = FindNextChannel();
-		Debug.Log(next + "\n");
+		int next = FindPrevChannel();
 		if(next != -1)
 		{
 			selectedChannel = next;
@@ -44,7 +43,6 @@ public class RecipeManager : MonoBehaviour
 	void PressDown()
 	{
 		int next = FindNextChannel();
-		Debug.Log(next + "\n");
 		if (next != -1)
 		{
 			selectedChannel = next;
@@ -67,7 +65,7 @@ public class RecipeManager : MonoBehaviour
 	{
 		int nextChannel = -1;
 
-		for (int i = selectedChannel + 1; i < 100; i++)
+		for (int i = selectedChannel + 1; i < channels.Count + 3; i++)
 		{
 			if (i >= channels.Count)
 			{
@@ -94,11 +92,11 @@ public class RecipeManager : MonoBehaviour
 	{
 		int nextChannel = -1;
 
-		for (int i = selectedChannel - 1; i < -200; i--)
+		for (int i = selectedChannel - 1; i > -200; i--)
 		{
-			if (i <= 0)
+			if (i < 0)
 			{
-				i = channels.Count;
+				i = channels.Count - 1;
 			}
 
 			nextChannel = i;
@@ -113,7 +111,6 @@ public class RecipeManager : MonoBehaviour
 				return -1;
 			}
 		}
-
 		return nextChannel;
 	}
 
@@ -122,16 +119,26 @@ public class RecipeManager : MonoBehaviour
 	{
 	
 	}
-	
+
+	bool upPressed = false;
+	bool downPressed = false;
 	void Update () 
 	{
-		if(Input.GetKeyDown(KeyCode.I))
+
+		if (Input.GetAxis("VertNav") > .4f && !upPressed)
 		{
+			upPressed = true;
 			PressUp();
 		}
-		if (Input.GetKeyDown(KeyCode.K))
+		if (Input.GetAxis("VertNav") < -.4f && !downPressed)
 		{
+			downPressed = true;
 			PressDown();
+		}
+		if (Input.GetAxis("VertNav") < .4f && Input.GetAxis("VertNav") > -.4f)
+		{
+			upPressed = false;
+			downPressed = false;
 		}
 		//If they press up
 		//PressUp();
