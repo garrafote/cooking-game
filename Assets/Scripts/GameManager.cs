@@ -66,8 +66,8 @@ public class GameManager : MonoBehaviour {
             barbar.task = task;
 
             var activeTask = task as ActiveTask;
-            activeTask.inputAction = activeTask.ListenButtonPress;
-            activeTask.inputIdentifiers = (new[] { "Fire2", "Fire2", "Fire1" }).ToList();
+            activeTask.inputAction = activeTask.ListenJoyStickRotation;
+            //activeTask.inputIdentifiers = (new[] { "Fire2", "Fire2", "Fire1" }).ToList();
 
             var rt = bar.GetComponent<RectTransform>();
             rt.anchoredPosition = new Vector3(300, -50);
