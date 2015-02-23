@@ -40,10 +40,26 @@ public class ChannelManager : MonoBehaviour
 		{
 			rt.transform.Find("Text").GetComponent<Text>().text = task.name;
 			rt.GetComponent<TaskButton>().task = task;
-		}
-		rt.pivot = new Vector2(0,1);
-		rt.sizeDelta = new Vector2(Random.Range(80, 180), 30);
+			
+			if(task is ActiveTask)
+			{
+				//Do activeTask stuff
+				rt.sizeDelta = new Vector2(60 + 20 * ((ActiveTask)task).totalInputCount, 30);
+				rt.GetComponent<Image>().color = Color.yellow;
+			}
+			else
+			{
+				rt.sizeDelta = new Vector2(75 + 5 * ((TimedTask)task).duration, 30);
+				rt.GetComponent<Image>().color = Color.green;
 
+			}
+
+		}
+		else
+		{
+			rt.pivot = new Vector2(0,1);
+			rt.sizeDelta = new Vector2(Random.Range(80, 180), 30);
+		}
 		RegisterTaskButton(rt);
 	}
 
