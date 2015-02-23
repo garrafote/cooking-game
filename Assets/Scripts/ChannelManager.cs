@@ -54,16 +54,9 @@ public class ChannelManager : MonoBehaviour
 		newTask.transform.SetAsFirstSibling();
 	}
 
-	public void Start()
+	public void Awake()
 	{
 		Tasks = new List<RectTransform>();
-        //GenerateTask();
-        //GenerateTask();
-        //GenerateTask();
-        //GenerateTask();
-
-		//Then position the tasks.
-		PositionTasks();
 	}
 
 	void Update () 

@@ -5,7 +5,7 @@ using System.Linq;
 
 public class GameManager : MonoBehaviour {
 
-    Task[] tasks;
+    List<Task> tasks;
 
     IDictionary<Task, SlidingBar> bars;
 
@@ -26,25 +26,31 @@ public class GameManager : MonoBehaviour {
 
         bars = new Dictionary<Task, SlidingBar>();
 
-        // all children must contain a task component
-        tasks = transform.Cast<Transform>().Select(t => t.GetComponent<Task>()).ToArray();
+        tasks = new List<Task>();
+    }
+
+    void Start()
+    {  // all children must contain a task component
         foreach (var task in tasks)
         {
             task.Complete += OnTaskComplete;
         }
-    }
 
-    void Start()
-    {
-        foreach (var task in tasks)
+        for (var i = 0; i < transform.childCount; i++)
         {
-            recipe.channels[0].GenerateTask(task);
+            foreach (Transform child in transform.GetChild(i))
+            {
+                var task = child.GetComponent<Task>();
+                task.Complete += OnTaskComplete;
+
+                tasks.Add(task);
+
+                recipe.channels[i].GenerateTask(task);
+            }
+
+            recipe.channels[i].PositionTasks();
         }
 
-        foreach (var channel in recipe.channels)
-        {
-            channel.PositionTasks();
-        }
     }
 
     void OnTaskComplete(Task task)
